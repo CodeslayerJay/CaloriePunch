@@ -1,0 +1,35 @@
+﻿.navbar {
+    border: 0px!important;
+    height: 50px;
+}
+
+.navbar-title {
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: 0;
+    font-style: italic;
+    font-weight: 800;
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+    .navbar-title span {
+        color: orangered;
+        text-transform: uppercase;
+    }
+
+#navmenu-btn {
+    background-color: inherit;
+    border: none;
+    color: inherit;
+    position:absolute;
+    right: 10px;
+}
+
+#usermenu-btn {
+    position: absolute;
+    left: 10px;
+}

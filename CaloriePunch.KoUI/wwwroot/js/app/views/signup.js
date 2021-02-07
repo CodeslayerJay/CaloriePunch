@@ -1,9 +1,10 @@
-﻿define(function (require, exports, module) {
-    var ko = require("knockout");
-
+﻿define("views/signup", ['require', 'knockout', 'bootstrap', 'jquery', 'module', 'exports'],
+function (require, ko, bootstrap, $, module, exports) {
+    
+    
     var signupVM = function () {
         return {
-            test: ko.observable("test")
+            test: ko.observable("Yo!!! This Is Awesome! Muahahah")
         }
     }
 

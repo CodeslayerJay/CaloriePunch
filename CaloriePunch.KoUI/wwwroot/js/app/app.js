@@ -1,56 +1,90 @@
 ﻿// Global Application Config Settings
 var _appConfig = {
     AppName: "CaloriePunch",
+    Roles: ["Admin", "User", "Guest"]
 };
+
 
 // Require Configuration
 require.config({
-    baseUrl: "/js",
+    baseUrl: "/js/app/",
     paths: {
-        "bootstrap": "../lib/bootstrap/dist/js/bootstrap",
-        "jquery": "../lib/jquery/dist/jquery",
-        "knockout": "../lib/knockout/knockout-3.5.1",
+        "bootstrap": "/lib/bootstrap/dist/js/bootstrap",
+        "jquery": "/lib/jquery/dist/jquery",
+        "knockout": "/lib/knockout/knockout-3.5.1",
+        "text": "/lib/text.min",
+        "components": "components",
+        "services": "services",
+        "views":"views"
     },
-    waitSeconds: 15,
-    config: _appConfig
+    waitSeconds: 30,
+    config:
+    {
+        "app": _appConfig,
+    }
 });
 
 // App entry point
-define("app", function (require, exports, module) {
-    var ko = require("knockout");
-    var bootstrap = require("bootstrap");
-    var $ = jquery = require("jquery");
+define("app",
+    ['require', 'knockout', 'bootstrap', 'jquery', './config', 'module'],
+    function (require, ko, bootstrap, jquery, authService, appConfig, module) {
 
-    var app = function () {
-        return {
-            ViewModel: ko.observable(),
-            LoadView: function (viewModel) {
-                var vm = this;
+        var App = function () {
+            return {
+                viewModel: ko.observable(), // reference
+                isLoading: ko.observable(false),
+                loadView: function (viewModel) {
+                    var vm = new viewModel(this);
 
-                this.ViewModel(viewModel);
+                    this.viewModel(vm);
 
-                ko.applyBindings(viewModel(), document.getElementById('app'));
+                    var el = document.getElementById('app');
 
-                if (typeof vm.ViewModel().Init === 'function')
-                    vm.ViewModel().Init();
-            },
+                    ko.applyBindings(vm, el); // apply ko bindings and set the context to id="app" element
+
+                    // Optional - If vm has Init() function then call it.
+                    if (typeof vm.initOnBinding === 'function')
+                        vm.initOnBinding();
+
+                    el.style.display = "block";
+                    
+                },
+                displayLoadingScreen: function (show) {
+                    show = show || false;
+                    
+                    var loadingScreen = document.getElementById('loadingScreen');
+                    loadingScreen.style.display = show ? "block": "none";
+                },
+                Watchers: function () {
+                    var vm = this;
+
+                    vm.isLoading.subscribe(function (val) {
+                        vm.displayLoadingScreen(val);
+                    });
+                }
+            }
         }
-    }
 
-    return new app();
+        var app = new App();
+        app.Watchers();
+
+        return app;
 });
 
+// Initialization of the app
 function Bootstrap() {
-    var pageName = window.location.pathname.split("/")[1];
-    pageName = pageName ? pageName.toLowerCase() : null;
-    var url = pageName ? "app/views/" + pageName : null;
+    
+    require(["app", "./services/router"], function (app, router) {
+        var currentView = router.currentView();
 
-    require(["app", url], function (app, pageViewModel) {
-        if (pageViewModel) {
-            app.LoadView(pageViewModel);
-        }        
+        if (currentView) {
+            require([currentView], function (view) {
+                app.loadView(view);
+            });            
+        }
+              
     });
-}
+};
 
-Bootstrap();
+Bootstrap(); // load the app
 
