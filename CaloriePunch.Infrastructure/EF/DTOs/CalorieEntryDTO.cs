@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CaloriePunch.Domain.Entities
+namespace CaloriePunch.Infrastructure.EF.DTOs
 {
-    public class CalorieEntry : EntityBase
+    public class CalorieEntryDTO
     {
+        public int Id { get; set; }
         public double? Calories { get; set; }
         public double? Fat { get; set; }
         public double? Carbs { get; set; }

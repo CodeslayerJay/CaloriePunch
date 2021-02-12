@@ -1,4 +1,8 @@
 ﻿@page
+@{
+    Layout = "_LoggedInLayout";
+}
+
 @section Styles {
     
     <link rel="stylesheet" href="~/css/cyborg.bootstrap.min.css" />
@@ -9,8 +13,11 @@
     <div data-bind='component: "navbar-component"'></div>
 }
 
-<div class="row">
-    <div class="col-md-12">
-
+<div id="dashboard-template-main" class="p-3">
+    <div class="row"  style="padding-top: 70px;">
+        <div class="col-md-6 mx-auto">
+            <div data-bind='component: "calorieEntry-component"'></div>
+        </div>
     </div>
+    
 </div>

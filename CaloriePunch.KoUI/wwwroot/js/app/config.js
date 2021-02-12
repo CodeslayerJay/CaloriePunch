@@ -1,5 +1,5 @@
-﻿define("config", ['knockout'], function (ko) {
-
+﻿define("config", ['knockout', 'knockout-mapping'], function (ko, koMapping) {
+    
     Array.prototype.firstOrDefault = function (key, match) {
         var _matchedObj = this[this.map(function (x) { return x[key]; }).indexOf(match)];
         return _matchedObj ? _matchedObj : null;
@@ -36,6 +36,33 @@
         return _match;
     }
 
+
+    ko.bindingHandlers.cpNumeric = {
+        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            // This will be called when the binding is first applied to an element
+            // Set up any initial state, event handlers, etc. here
+            var bindings = allBindings(),
+                el = element,
+                koValue = valueAccessor(),
+                context = bindingContext;
+
+            koValue.subscribe(function (val) {
+                if (val) {
+                    val = koValue.replace(/\D/g, '');
+                }
+            });
+        },
+        update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            // This will be called once when the binding is first applied to an element,
+            // and again whenever any observables/computeds that are accessed change
+            // Update the DOM element based on the supplied values here.
+            var bindings = allBindings(),
+                el = element,
+                koValue = valueAccessor(),
+                context = bindingContext;
+        }
+    };
+
     var ErrorHandlingBindingProvider = function () {
         var original = new ko.bindingProvider();
 
@@ -57,7 +84,9 @@
             return result;
         };
     }
-
+    
     ko.bindingProvider.instance = new ErrorHandlingBindingProvider();
+
+    ko.mapping = koMapping;
 
 });

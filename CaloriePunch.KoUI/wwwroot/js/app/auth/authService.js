@@ -1,4 +1,4 @@
-﻿define("auth/authService", ['require', 'module', '../services/httpService', './authConfig', 'knockout'],
+﻿define("auth/authService", ['require', 'module', 'httpService', './authConfig', 'knockout'],
 function (require, module, httpService, authConfig, ko) {
 
 

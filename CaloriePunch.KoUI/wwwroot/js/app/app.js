@@ -12,10 +12,12 @@ require.config({
         "bootstrap": "/lib/bootstrap/dist/js/bootstrap",
         "jquery": "/lib/jquery/dist/jquery",
         "knockout": "/lib/knockout/knockout-3.5.1",
+        "knockout-mapping": "/lib/knockout/knockout-mapping",
         "text": "/lib/text.min",
-        "components": "components",
-        "services": "services",
-        "views":"views"
+        "httpService": "/js/app/services/httpService",
+        //"components": "components",
+        //"services": "services",
+        //"views":"views"
     },
     waitSeconds: 30,
     config:
@@ -26,9 +28,9 @@ require.config({
 
 // App entry point
 define("app",
-    ['require', 'knockout', 'bootstrap', 'jquery', './config', 'module'],
-    function (require, ko, bootstrap, jquery, authService, appConfig, module) {
-
+    ['require', 'knockout', 'bootstrap', 'jquery', './config', 'module', 'knockout-mapping'],
+    function (require, ko, bootstrap, jquery, authService, appConfig, module, koMapping) {
+        
         var App = function () {
             return {
                 viewModel: ko.observable(), // reference
