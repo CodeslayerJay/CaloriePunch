@@ -14,8 +14,16 @@ input {
     outline: none!important;
 }
 
+.inline-block {
+    display: inline-block!important;
+}
+
+.carousel-control-prev-icon {
+    opacity: .2!important;
+}
+
 .navbar {
-    border: 0px!important;
+    border: 0px !important;
     height: 50px;
 }
 
@@ -62,6 +70,17 @@ input {
     bottom: 0px;
     background-color: #060606;
     z-index: 50;
+}
+
+.disable-container {
+    display: block;
+    position: absolute;
+    background-color: white;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
 }
 
 .form-control.input-dark {

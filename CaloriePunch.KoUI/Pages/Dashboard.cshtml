@@ -7,17 +7,81 @@
     
     <link rel="stylesheet" href="~/css/cyborg.bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/app.css" />
+
+    <style>
+        #dashboard-template-main {
+            
+        }
+
+        #side-content {
+            position:absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 350px;
+            margin: 0px auto;
+            height: 200px;
+            height: 100vh;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        #page-wrapper {
+            max-height: 100vh;
+        }
+    </style>
 }
 
-@section Navbar {
-    <div data-bind='component: "navbar-component"'></div>
-}
+<div id="dashboard-template-main">
+    <div id="page-wrapper">
+        <div data-bind='component: { name: "navbar-component", params: { $parentModel: $data, $parentChild: $data.$childModels.navbarVM }}'></div>
 
-<div id="dashboard-template-main" class="p-3">
-    <div class="row"  style="padding-top: 70px;">
-        <div class="col-md-6 mx-auto">
-            <div data-bind='component: "calorieEntry-component"'></div>
+        <div class="p-3">
+            <div class="row" style="padding-top: 30px;">
+                <div class="col-md-6 col-lg-4 mx-auto">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-interval="false">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="text-center" style="padding: 40px;">
+                                    <h4 data-bind="text: data.dailyCalAllowance, css: { 'text-danger': data.dailyCalAllowance() < 0, 'text-warning': data.dailyCalAllowance() == 0 }" 
+                                        style="padding: 40px;" class="text-success"></h4>
+                                    <div class="carousel-caption d-md-block">
+                                        <p class="text-secondary">Remaining Today</p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="carousel-item">
+                                <div class="text-center" style="padding: 40px;">
+                                    <h4 
+                                        data-bind="text: data.weeklyCalAllowance, css: { 'text-danger': data.weeklyCalAllowance() < 0, 'text-warning': data.weeklyCalAllowance() == 0 }" 
+                                        style="padding: 40px;" class="text-success"></h4>
+                                    <div class="carousel-caption d-md-block">
+                                        <p class="text-secondary">Remaining Week</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mx-auto">
+                    <div data-bind='component: {name: "calorieEntry-component", params: { $parentModel: $data, $parentChild: $data.$childModels.calorieEntryVM}}'></div>
+                </div>
+            </div>
+
         </div>
     </div>
-    
+    <div id="side-content" class="p-3">
+        <div data-bind='component: { name: "calorieEntryList-component", params: { $parentModel: $data, $parentChild: $data.$childModels.calorieEntryListVM }}'></div>
+    </div>
 </div>

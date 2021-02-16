@@ -14,6 +14,7 @@ require.config({
         "knockout": "/lib/knockout/knockout-3.5.1",
         "knockout-mapping": "/lib/knockout/knockout-mapping",
         "text": "/lib/text.min",
+        "dayjs": "/lib/dayjs.min",
         "httpService": "/js/app/services/httpService",
         //"components": "components",
         //"services": "services",
@@ -28,8 +29,8 @@ require.config({
 
 // App entry point
 define("app",
-    ['require', 'knockout', 'bootstrap', 'jquery', './config', 'module', 'knockout-mapping'],
-    function (require, ko, bootstrap, jquery, authService, appConfig, module, koMapping) {
+    ['require', 'knockout', 'bootstrap', 'jquery', './config', 'module', 'knockout-mapping', 'dayjs'],
+    function (require, ko, bootstrap, jquery, authService, appConfig, module, koMapping, dayjs) {
         
         var App = function () {
             return {

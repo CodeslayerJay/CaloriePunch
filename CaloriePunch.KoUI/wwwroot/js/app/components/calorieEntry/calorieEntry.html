@@ -66,7 +66,7 @@
                     <label>Save Food</label>
                     <input type="text"
                            data-bind="value: entryName"
-                           class="form-control input-dark" placeholder="Mega Burger..." maxlength="20" />
+                           class="form-control input-dark" placeholder="Mega Burger..." maxlength="100" />
                 </div>
                 <div class="col-md-4">
                     <label>Qty</label>
@@ -76,9 +76,11 @@
                 </div>
             </div>
         </div>
-        <div class="row pt-3">
+        <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-outline-danger btn-block btn-lg" type="button" data-bind="click: methods().save">Punch!</button>
+                <button class="btn btn-outline-danger btn-block btn-lg" type="button" data-bind="click: $parent.methods().save">Punch!</button>
+                <button class="btn btn-outline-secondary btn-block btn-lg" type="button" data-bind="click: function() { $parent.methods().delete($data.id) }, visible: id">Delete</button>
+                <button class="btn btn-block btn-lg text-dark" type="button" data-bind="click: $parent.methods().cancel, visible: id">Cancel</button>
             </div>
         </div>
     </div>

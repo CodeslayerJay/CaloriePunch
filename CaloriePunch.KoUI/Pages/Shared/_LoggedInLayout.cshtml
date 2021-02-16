@@ -19,28 +19,22 @@
     @RenderSection("Styles", required: false)
 </head>
 <body id="app">
-    <div id="page-wrapper">
-        <header>
-            @RenderSection("Navbar", required: false)
-        </header>
-
-        <div class="container">
-            <main role="main" class="pb-3">
-                <div id="loadingScreen">
-                    <h4>CaloriePunch</h4>
-                    <p>Loading....</p>
-                </div>
-                @RenderBody()
-            </main>
-        </div>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div id="loadingScreen">
+                <h4>CaloriePunch</h4>
+                <p>Loading....</p>
+            </div>
+            @RenderBody()
+        </main>
     </div>
     
 
-    <footer class="footer text-muted">
+    @*<footer class="footer text-muted">
         <div class="container">
             &copy; 2021 - CaloriePunch.com - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
-    </footer>
+    </footer>*@
 
 
     <environment include="Development">
